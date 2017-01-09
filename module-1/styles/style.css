@@ -1,4 +1,13 @@
 .message {
+  padding: 20px 10px;
   font-size: 1.3em;
   font-weight: bold;
+}
+
+.message.alert-success {
+  border: 1px solid #3c763d;
+}
+
+.message.alert-danger {
+  border: 1px solid #a94442;
 }
