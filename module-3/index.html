@@ -25,6 +25,7 @@
     </form>
 
     <found-items found-items="narrowCont.found" on-remove="narrowCont.onRemove(index)">
+      <div ng-if="narrowCont.searchError" class="alert alert-danger">Nothing found</div>
     </found-items>
   </div>
 </body>

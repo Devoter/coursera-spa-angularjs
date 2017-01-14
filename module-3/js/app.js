@@ -48,14 +48,23 @@ function NarrowItDownController(MenuSearchService) {
   this.text = '';
   this.found = [];
   this.isLoaderVisible = false;
+  this.searchError = false;
   this.search = () => {
-    this.isLoaderVisible = true;
-    MenuSearchService.getMatchedMenuItems(this.text)
-    .then((items) => this.found = items)
-    .catch((reason) => {
-      console.error(`Cannot load menu items, reason: ${reason}`);
-    })
-    .finally(() => this.isLoaderVisible = false);
+    if (this.text === '') {
+      this.searchError = true;
+    }
+    else {
+      this.isLoaderVisible = true;
+      MenuSearchService.getMatchedMenuItems(this.text)
+      .then((items) => this.found = items)
+      .catch((reason) => {
+        console.error(`Cannot load menu items, reason: ${reason}`);
+      })
+      .finally(() => {
+        this.isLoaderVisible = false;
+        this.searchError = this.found.length === 0;
+      });
+    }
   };
 
   this.onRemove = MenuSearchService.removeItem;
@@ -71,7 +80,8 @@ function FoundItemsDirective() {
     },
     controller: function () {},
     controllerAs: 'list',
-    bindToController: true
+    bindToController: true,
+    transclude: true
   };
 }
 

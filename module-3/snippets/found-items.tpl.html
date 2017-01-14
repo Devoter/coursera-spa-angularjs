@@ -1,8 +1,13 @@
+<div ng-transclude></div>
 <ul class="list-group">
-  <li class="list-group-item" ng-repeat="item in list.foundItems">
-    ({{item.short_name}}) {{item.name}} &mdash; {{item.description}}
-    <button type="button" class="btn btn-default" ng-click="list.onRemove({index: $index});">
-      <span class="text-danger glyphicon glyphicon-remove"></span> Don't want this one!
-    </button>
+  <li class="list-group-item container" ng-repeat="item in list.foundItems">
+    <div class="row">
+      <div class="col-xs-8">({{item.short_name}}) {{item.name}} &mdash; {{item.description}}</div>
+      <div class="col-xs-4 text-right">
+        <button type="button" class="btn btn-default" ng-click="list.onRemove({index: $index});">
+          <span class="text-danger glyphicon glyphicon-remove"></span> Don't want this one!
+        </button>
+      </div>
+    </div>
   </li>
 </ul>
