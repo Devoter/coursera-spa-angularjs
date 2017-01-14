@@ -51,6 +51,7 @@ function NarrowItDownController(MenuSearchService) {
   this.searchError = false;
   this.search = () => {
     if (this.text === '') {
+      this.found = [];
       this.searchError = true;
     }
     else {
