@@ -7,6 +7,7 @@ angular.module('NarrowItDownApp', [])
 .controller('NarrowItDownController', NarrowItDownController)
 .service('MenuSearchService', MenuSearchService)
 .directive('foundItems', FoundItemsDirective)
+.directive('loaderIndicator', LoaderIndicatorDirective)
 .constant('ApiBasePath', "http://davids-restaurant.herokuapp.com");
 
 MenuSearchService.$inject = ['$http', 'ApiBasePath'];
@@ -14,18 +15,17 @@ function MenuSearchService($http, ApiBasePath) {
   let foundItems = [];
 
   this.getMatchedMenuItems = function (searchTerm) {
+    let lowerCaseSearchTerm = searchTerm.toLowerCase();
+
     return $http({
       method: 'GET',
       url: ApiBasePath + '/menu_items.json'
     })
     .then(function (result) {
-      foundItems = [];
-      console.log(result);
-      result.data.menu_items.forEach((item) => {
-        if (item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) {
-          foundItems.push(item);
-        }
-      });
+      foundItems = result.data.menu_items.filter((item) =>
+        (item.description.toLowerCase().indexOf(lowerCaseSearchTerm) !== -1) ||
+        (item.name.toLowerCase().indexOf(lowerCaseSearchTerm) !== -1) ||
+        (item.short_name.toLowerCase().indexOf(lowerCaseSearchTerm) !== -1));
 
       return foundItems;
     });
@@ -36,25 +36,35 @@ function MenuSearchService($http, ApiBasePath) {
   }
 }
 
+function LoaderIndicatorDirective() {
+  return {
+    restrict: 'E',
+    templateUrl: 'snippets/loader-indicator.tpl.html'
+  };
+}
+
 NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService) {
   this.text = '';
   this.found = [];
+  this.isLoaderVisible = false;
   this.search = () => {
+    this.isLoaderVisible = true;
     MenuSearchService.getMatchedMenuItems(this.text)
     .then((items) => this.found = items)
     .catch((reason) => {
       console.error(`Cannot load menu items, reason: ${reason}`);
-    });
+    })
+    .finally(() => this.isLoaderVisible = false);
   };
 
   this.onRemove = MenuSearchService.removeItem;
 }
 
 function FoundItemsDirective() {
-  let ddo = {
+  return {
     restrict: 'E',
-    templateUrl: 'snippets/found-items.html',
+    templateUrl: 'snippets/found-items.tpl.html',
     scope: {
       foundItems: '<',
       onRemove: '&'
@@ -63,8 +73,6 @@ function FoundItemsDirective() {
     controllerAs: 'list',
     bindToController: true
   };
-
-  return ddo;
 }
 
 })();
