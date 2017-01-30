@@ -24,16 +24,16 @@ function Router($stateProvider, $urlRouterProvider) {
                 }]
             }
         })
-        .state('categories.items', {
+        .state('items', {
             url: '/items/{itemId}',
-            templateUrl: 'templates/routes/categories/items.html',
+            templateUrl: 'templates/routes/items.html',
             controller: 'ItemsController as itms',
             params: {
                 itemId: null
             },
             resolve: {
-                detail: ['$stateParams', 'MenuDataService', 'items', function ($stateParams, MenuDataService, items) {
-                    return MenuDataService.getItemsForCategory(items[$stateParams.itemId].short_name);
+                detail: ['$stateParams', 'MenuDataService', function ($stateParams, MenuDataService, items) {
+                    return MenuDataService.getItemsForCategory($stateParams.itemId);
                 }]
             }
         });
