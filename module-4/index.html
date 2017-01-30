@@ -1,0 +1,39 @@
+  <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Libraries -->
+    <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
+    <script type="text/javascript" src="lib/js/angular.min.js"></script>
+    <script type="text/javascript" src="lib/js/angular-ui-router.min.js"></script>
+    <!-- Application styles -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Modules -->
+    <script type="text/javascript" src="src/modules/data.module.js"></script>
+    <script type="text/javascript" src="src/modules/menuapp.module.js"></script>
+    <!-- Routes list -->
+    <script type="text/javascript" src="src/router.js"></script>
+    <!-- Data module services -->
+    <script type="text/javascript" src="src/modules/data/menudata.service.js"></script>
+    <!-- MenuApp module controllers -->
+    <script type="text/javascript" src="src/modules/menuapp/categories.controller.js"></script>
+    <script type="text/javascript" src="src/modules/menuapp/items.controller.js"></script>
+    <!-- MenuApp module components -->
+    <script type="text/javascript" src="src/modules/menuapp/categories.component.js"></script>
+    <script type="text/javascript" src="src/modules/menuapp/items.component.js"></script>
+ </head>
+ <body ng-app="MenuApp">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" ui-sref="home">Welcome to our Restaurant</a>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    
+    <div class="container-fluid">
+        <ui-view></ui-view>
+    </div>
+ </body>
+ </html>
