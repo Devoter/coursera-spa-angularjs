@@ -113,6 +113,23 @@ h3.menu-item-title {
 }
 /* END SINGLE CATEGORY PAGE */
 
+/* UI ELEMENTS */
+.btn-primary {
+  background-color: #557c3e;
+  border-color: #476934;
+}
+.btn-primary:hover {
+  background-color: #486935;
+  border-color: #476934; 
+}
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:active:hover {
+  background-color: #415f30;
+  border-color: #476934;
+}
+/* END UI ELEMENTS */
+
 
 /********** Large devices only **********/
 @media (min-width: 1200px) {

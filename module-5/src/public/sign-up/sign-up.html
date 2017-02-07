@@ -1,40 +1,112 @@
 <div class="container">
     <h2 class="text-center">Sing Up</h2>
 
-    <form novalidate>
+    <form name='signUpForm' novalidate>
         <div class="col-xxs-12 col-xs-12 col-sm-6">
             <div class="form-group">
                 <label for="first-name">First name:</label>
-                <input id="first-name" type="text" ng-model="signUpCtrl.info.firstName" class="form-control">
+                <input id="first-name" name="firstName" type="text" class="form-control"
+                       ng-model="signUpCtrl.info.firstName"
+                       required
+                       minlength="2"
+                       ng-maxlength="30">
+            </div>
+            
+            <div class="form-group alert alert-warning"
+                 ng-if="(signUpForm.firstName.$error.minlength || signUpForm.firstName.$error.required) && signUpForm.firstName.$touched">
+                First name must be at least 2 characters long
+            </div>
+
+            <div class="form-group alert alert-warning"
+                 ng-if="signUpForm.firstName.$error.maxlength && signUpForm.firstName.$touched">
+                First name must not be longer than 30 characters
             </div>
         </div>
 
         <div class="col-xxs-12 col-xs-12 col-sm-6">
             <div class="form-group">
                 <label for="last-name">Last name:</label>
-                <input id="last-name" type="text" ng-model="signUpCtrl.info.lastName" class="form-control">
+                <input id="last-name" name="lastName" type="text" class="form-control"
+                       ng-model="signUpCtrl.info.lastName"
+                       required
+                       minlength="2"
+                       ng-max-legnth="100">
+            </div>
+
+            <div class="form-group alert alert-warning"
+                 ng-if="(signUpForm.lastName.$error.minlength || signUpForm.lastName.$error.required) && signUpForm.lastName.$touched">
+                Last name must be at least 2 characters long
+            </div>
+
+            <div class="form-group alert alert-warning"
+                 ng-if="signUpForm.lastName.$error.maxlength && signUpForm.lastName.$touched">
+                Last name must not be longer than 100 characters
             </div>
         </div>
+
+        <div class="clearfix"></div>
 
         <div class="col-xxs-12 col-xs-12 col-sm-6">
             <div class="form-group">
                 <label for="e-mail">E-mail:</label>
-                <input id="e-mail" type="email" ng-model="signUpCtrl.info.eMail" class="form-control">
+                <input id="e-mail" name="email" type="email" class="form-control"
+                       ng-model="signUpCtrl.info.eMail"
+                       required>
+            </div>
+
+            <div class="form-group alert alert-warning"
+                 ng-if="signUpForm.email.$invalid && signUpForm.email.$touched">
+                Must be a valid email address: handle@domain format
             </div>
         </div>
 
         <div class="col-xxs-12 col-xs-12 col-sm-6">
             <div class="form-group">
                 <label for="phone-number">Phone number:</label>
-                <input id="phone-number" type="tel" ng-model="signUpCtrl.info.phoneNumber" class="form-control">
+                <input id="phone-number" name="phoneNumber" type="text" class="form-control"
+                       ng-model="signUpCtrl.info.phoneNumber"
+                       required
+                       pattern="(\d{3})-(\d{3})-(\d{4})">
+            </div>
+
+            <div class="form-group alert alert-warning"
+                 ng-if="signUpForm.phoneNumber.$invalid && signUpForm.phoneNumber.$touched">
+                Phone must be in the format ###-###-####.
             </div>
         </div>
+
+        <div class="clearfix"></div>
 
         <div class="col-xxs-12 col-xs-12 col-sm-6">
             <div class="form-group">
                 <label for="menu-number">Menu number:</label>
-                <input id="menu-number" type="text" ng-model="signUpCtrl.info.shortName" class="form-control">
+                <input id="menu-number" name="menuNumber" type="text" class="form-control"
+                       ng-model="signUpCtrl.info.shortName"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required
+                       ng-max-length="10"
+                       menu-item-short-name>
             </div>
-        </div>        
+
+            <div class="form-group alert alert-warning"
+                 ng-if="signUpForm.menuNumber.$invalid && signUpForm.menuNumber.$touched">
+                 No such menu number exists.
+            </div>
+        </div>
+
+        <div class="col-xxs-12 col-xs-12">
+            <div class="form-group">
+                <button class="btn btn-primary"
+                    ng-disabled="signUpForm.$invalid"
+                    ng-click="signUpCtrl.submit()">Submit</button>
+            </div>
+        </div>
+
+        <div class="col-xxs-12 col-xs-12">
+            <div class="form-group alert alert-success"
+                 ng-if="signUpCtrl.informationSaved">
+                 Your information has been saved.
+            </div>
+        </div>
     </form>
 </div>

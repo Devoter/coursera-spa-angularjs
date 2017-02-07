@@ -1,4 +1,4 @@
-/* esversion: 6 */
+/* jshint esversion: 6 */
 (function () {
 'use strict';
 
@@ -10,7 +10,7 @@ function MyInfoService() {
         lastName: null,
         eMail: null,
         phoneNumber: null,
-        shortName: null
+        item: null
     };
 }
 
